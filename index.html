@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Received Data</title>
+    <title>Received Battery Level</title>
 </head>
 <body>
-    <h1>Received Data:</h1>
-    <pre id="data"></pre>
+    <h1>Received Battery Level:</h1>
+    <pre id="battery"></pre>
 
     <script>
-        // JavaScript om de ontvangen gegevens weer te geven
-        const receivedData = new URLSearchParams(window.location.search).get("data");
-        document.getElementById("data").innerText = receivedData;
+        // JavaScript om de ontvangen batterijstatus weer te geven
+        const receivedBattery = new URLSearchParams(window.location.search).get("battery");
+        document.getElementById("battery").innerText = "Battery Level: " + receivedBattery;
     </script>
 </body>
 </html>
