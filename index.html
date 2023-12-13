@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Received Data</title>
+</head>
+<body>
+    <h1>Received Data:</h1>
+    <pre id="data"></pre>
+
+    <script>
+        // JavaScript om de ontvangen gegevens weer te geven
+        const receivedData = new URLSearchParams(window.location.search).get("data");
+        document.getElementById("data").innerText = receivedData;
+    </script>
+</body>
+</html>
