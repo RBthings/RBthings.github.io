@@ -20,15 +20,19 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
                     body: formData
                 });
 
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Server error: ${errorText}`);
+                }
+
                 const data = await response.json();
                 alert('Photo uploaded successfully!');
             } catch (error) {
-                console.error('Error uploading photo:', error);
-                alert('Error uploading photo. Please try again.');
+                console.error('Error uploading photo:', error.message);
+                alert(`Error uploading photo. ${error.message}`);
             }
         } else {
             alert('Invalid file type. Please upload a .jpg or .png file.');
         }
     }
 });
-
