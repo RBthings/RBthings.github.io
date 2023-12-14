@@ -1,48 +1,21 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="YOUR_DROPBOX_APP_KEY"></script>
+    <title>Photo Upload</title>
 </head>
 <body>
-    <h1>Dropbox Data Display</h1>
-    <div id="fileList"></div>
+    <h1>Photo Upload</h1>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" accept="image/*" required>
+        <button type="submit">Upload Photo</button>
+    </form>
+    <div id="photoGallery"></div>
 
-    <script>
-        // Replace 'YOUR_DROPBOX_ACCESS_TOKEN' with the actual access token
-        const accessToken = 'sl.Brs3KPj19ENpggnLBgcd6OFYjyoONto8EaTSdK2XzqFiAKWoG6DP9X4tKud_g5BTGMHiifKY6OVGF9MzjVMOd-U_h5b_BlBowlOhctSvg0di25CceQ0XviLlPsYHcfoIlTYK9aArhJGg';
-
-        // Create an instance of Dropbox with the access token
-        const dbx = new Dropbox.Dropbox({ accessToken });
-
-        // List files in the root directory
-        dbx.filesListFolder({ path: '' })
-            .then(response => {
-                const fileList = document.getElementById('fileList');
-                fileList.innerHTML = '<h2>Files in Dropbox:</h2>';
-                
-                response.entries.forEach(entry => {
-                    if (entry[".tag"] === "file") {
-                        // For each file, get its content
-                        dbx.filesDownload({ path: entry.path_display })
-                            .then(file => {
-                                const reader = new FileReader();
-                                reader.onload = function(event) {
-                                    fileList.innerHTML += `<p>${entry.name}: ${event.target.result}</p>`;
-                                };
-                                reader.readAsText(file.fileBlob);
-                            })
-                            .catch(error => {
-                                console.error(error);
-                            });
-                    }
-                });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>
+
 
