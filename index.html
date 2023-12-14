@@ -3,20 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shortcuts Data</title>
+    <script src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="YOUR_DROPBOX_APP_KEY"></script>
 </head>
 <body>
-    <h1>Shortcuts Data</h1>
-    <div id="data-container"></div>
+    <h1>Dropbox Data Display</h1>
+    <div id="fileList"></div>
 
     <script>
-    fetch('https://eobvwrys3folzb1.m.pipedream.net')
-        .then(response => response.json())
-        .then(data => {
-            const dataContainer = document.getElementById('data-container');
-            dataContainer.innerText = JSON.stringify(data, null, 2);
-        })
-        .catch(error => console.error('Error fetching data:', error));
-</script>
+        // Replace 'YOUR_DROPBOX_ACCESS_TOKEN' with the actual access token
+        const accessToken = '63xvntzonp8nha4';
+
+        // Create an instance of Dropbox with the access token
+        const dbx = new Dropbox.Dropbox({ accessToken });
+
+        // List files in the root directory
+        dbx.filesListFolder({ path: '' })
+            .then(response => {
+                const fileList = document.getElementById('fileList');
+                fileList.innerHTML = '<h2>Files in Dropbox:</h2>';
+                response.entries.forEach(entry => {
+                    fileList.innerHTML += `<p>${entry.name}</p>`;
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 </body>
 </html>
